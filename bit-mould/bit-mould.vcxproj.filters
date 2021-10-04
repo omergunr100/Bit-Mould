@@ -13,48 +13,76 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{c63fb05e-b496-4657-acf3-6d57785340a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definitions">
+      <UniqueIdentifier>{17748ba4-0dcc-4186-9395-8daab9b1557d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definitions\Image">
+      <UniqueIdentifier>{7a98a976-44d1-48e0-b37a-6f6da446e3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definitions\Config">
+      <UniqueIdentifier>{c1214fc0-7510-4e26-afc5-8bc868a80bb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Definitions\Random">
+      <UniqueIdentifier>{14ec9d02-2f4f-46e6-8827-a6dce08c281a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\External Files">
+      <UniqueIdentifier>{70bd9858-313c-43c4-9129-9e495209cb33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AntVariant.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\AntVariant.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="BMP.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine\Board.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Definitions\Image\BMP.h">
+      <Filter>Source Files\Definitions\Image</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Definitions\Image\Color.h">
+      <Filter>Source Files\Definitions\Image</Filter>
     </ClInclude>
-    <ClInclude Include="Randomness.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Definitions\Random\Randomness.h">
+      <Filter>Source Files\Definitions\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions\Config\Config.h">
+      <Filter>Source Files\Definitions\Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AntVariant.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BMP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Randomness.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\AntVariant.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="resources.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine\Board.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Definitions\Image\BMP.cpp">
+      <Filter>Source Files\Definitions\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Definitions\Image\Color.cpp">
+      <Filter>Source Files\Definitions\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Definitions\Random\Randomness.cpp">
+      <Filter>Source Files\Definitions\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Definitions\Config\Config.cpp">
+      <Filter>Source Files\Definitions\Config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="compile gif.py" />
+    <None Include="External Files\compile gif.py">
+      <Filter>Source Files\External Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="External Files\Config.txt">
+      <Filter>Source Files\External Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

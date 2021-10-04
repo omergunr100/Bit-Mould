@@ -123,23 +123,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AntVariant.h" />
-    <ClInclude Include="BMP.h" />
-    <ClInclude Include="Board.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Randomness.h" />
+    <ClInclude Include="Definitions\Config\Config.h" />
+    <ClInclude Include="Definitions\Image\BMP.h" />
+    <ClInclude Include="Definitions\Image\Color.h" />
+    <ClInclude Include="Definitions\Random\Randomness.h" />
+    <ClInclude Include="Engine\AntVariant.h" />
+    <ClInclude Include="Engine\Board.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AntVariant.cpp" />
-    <ClCompile Include="BMP.cpp" />
-    <ClCompile Include="Board.cpp" />
-    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Definitions\Config\Config.cpp" />
+    <ClCompile Include="Definitions\Image\BMP.cpp" />
+    <ClCompile Include="Definitions\Image\Color.cpp" />
+    <ClCompile Include="Definitions\Random\Randomness.cpp" />
+    <ClCompile Include="Engine\AntVariant.cpp" />
+    <ClCompile Include="Engine\Board.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Randomness.cpp" />
-    <ClCompile Include="resources.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="compile gif.py" />
+    <None Include="External Files\compile gif.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="External Files\Config.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

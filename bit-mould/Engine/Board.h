@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "AntVariant.h"
-#include "BMP.h"
+#include "../Definitions/Image/BMP.h"
 
 struct Vector2 {
 	int m_x, m_y;

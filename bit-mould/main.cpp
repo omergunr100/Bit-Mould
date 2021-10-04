@@ -1,5 +1,6 @@
-#include "Board.h"
+#include "Engine/Board.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 

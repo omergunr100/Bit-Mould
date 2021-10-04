@@ -2,18 +2,6 @@
 
 using namespace std;
 
-Randomness::Randomness() 
-{
-}
-
-Randomness::Randomness(const Randomness& other)
-{
-}
-
-Randomness::~Randomness()
-{
-}
-
 float Randomness::dist_1_0()
 {
 	return distribution_1_0(generator);

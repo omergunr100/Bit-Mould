@@ -1,6 +1,6 @@
 #pragma once
-#include "Color.h"
-#include "Randomness.h"
+#include "../Definitions/Image/Color.h"
+#include "../Definitions/Random/Randomness.h"
 #include <vector>
 
 struct Weights {
