@@ -2,6 +2,17 @@
 #include<vector>
 #include "BMP.h"
 
+/*
+WIP
+*/
+
+struct BaseChunk {
+public:
+	int m_length;
+	char* m_type[4];
+
+};
+
 struct IHDR {
 
 private:

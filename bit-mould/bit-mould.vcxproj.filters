@@ -27,9 +27,6 @@
     <ClInclude Include="Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PNG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Randomness.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,9 +45,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PNG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Randomness.cpp">

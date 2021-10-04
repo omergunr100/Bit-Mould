@@ -2,6 +2,10 @@
 #include<fstream>
 #include<iostream>
 
+/*
+WIP
+*/
+
 PNG::PNG(int width, int height)
 	:m_width(width), m_height(height), m_colors(std::vector<Color>(width*height))
 {

@@ -127,7 +127,6 @@
     <ClInclude Include="BMP.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="PNG.h" />
     <ClInclude Include="Randomness.h" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +135,6 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PNG.cpp" />
     <ClCompile Include="Randomness.cpp" />
     <ClCompile Include="resources.cpp" />
   </ItemGroup>
