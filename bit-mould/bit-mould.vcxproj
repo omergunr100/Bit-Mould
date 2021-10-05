@@ -126,6 +126,7 @@
     <ClInclude Include="Definitions\Config\Config.h" />
     <ClInclude Include="Definitions\Image\BMP.h" />
     <ClInclude Include="Definitions\Image\Color.h" />
+    <ClInclude Include="Definitions\Logger\Logger.h" />
     <ClInclude Include="Definitions\Random\Randomness.h" />
     <ClInclude Include="Engine\AntVariant.h" />
     <ClInclude Include="Engine\Board.h" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Definitions\Config\Config.cpp" />
     <ClCompile Include="Definitions\Image\BMP.cpp" />
     <ClCompile Include="Definitions\Image\Color.cpp" />
+    <ClCompile Include="Definitions\Logger\Logger.cpp" />
     <ClCompile Include="Definitions\Random\Randomness.cpp" />
     <ClCompile Include="Engine\AntVariant.cpp" />
     <ClCompile Include="Engine\Board.cpp" />

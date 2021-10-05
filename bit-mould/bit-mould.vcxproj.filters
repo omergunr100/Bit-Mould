@@ -54,6 +54,9 @@
     <ClInclude Include="Definitions\Config\Config.h">
       <Filter>Source Files\Definitions\Config</Filter>
     </ClInclude>
+    <ClInclude Include="Definitions\Logger\Logger.h">
+      <Filter>Source Files\Definitions\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Definitions\Config\Config.cpp">
       <Filter>Source Files\Definitions\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="Definitions\Logger\Logger.cpp">
+      <Filter>Source Files\Definitions\Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

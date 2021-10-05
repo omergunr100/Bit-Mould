@@ -1,6 +1,6 @@
 General configuration:
-LOG_PATH: Log path=C:\Projects\C++\bit-mould
-IMAGE_PATH: Image folder path=C:\Projects\C++\bit-mould\Images
+LOG_PATH: Log path=C:/Projects/C++/bit-mould/Logs/
+IMAGE_PATH: Image folder path=C:/Projects/C++/bit-mould/Images/
 
 Ant Weights:
 Base stats tied to strong direction:

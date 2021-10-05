@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <map>
+#include "../Logger/Logger.h"
 
 struct Config {
 
@@ -14,8 +15,8 @@ struct Config {
 	~Config() = delete;
 
 	static int Parse();
-
-	static struct General {
+	/*
+	struct General {
 		static const char* configPath;
 		static std::ofstream log;
 		static const char* imageFolder;
@@ -25,7 +26,7 @@ struct Config {
 		~General() = delete;
 	};
 	
-	static struct AntWeights{
+	struct AntWeights{
 		// Base stats increases tied to strongDirection
 		static const float spreadBias;
 		static const float aggressivenessBias;
@@ -44,7 +45,7 @@ struct Config {
 		~AntWeights() = delete;
 	};
 	
-	static struct GameParameters {
+	struct GameParameters {
 		static const int width;
 		static const int height;
 		static const int players;
@@ -56,4 +57,5 @@ struct Config {
 		GameParameters(const GameParameters& other) = delete;
 		~GameParameters() = delete;
 	};
+	*/
 };

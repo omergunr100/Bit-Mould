@@ -1,11 +1,11 @@
 #include "Config.h"
 
-const char* Config::General::configPath = "External Files/Config.txt";
+const char* configPath = "External Files/Config.txt";
 std::map<std::string, std::string> Config::config;
 
 int Config::Parse()
 {
-	std::ifstream config(General::configPath);
+	std::ifstream config(configPath);
 	if (config.good()) {
 		std::string line;
 		while (std::getline(config, line)) {
@@ -21,6 +21,7 @@ int Config::Parse()
 				}
 			}
 		}
+		config.close();
 	}
 	else {
 		std::cerr << "[Fatal Error] Config file could not be opened!" << std::endl;
@@ -28,5 +29,4 @@ int Config::Parse()
 	}
 	return 0;
 }
-
 int temp = Config::Parse();
