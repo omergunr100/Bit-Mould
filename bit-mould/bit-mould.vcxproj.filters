@@ -31,6 +31,9 @@
     <Filter Include="Source Files\External Files">
       <UniqueIdentifier>{70bd9858-313c-43c4-9129-9e495209cb33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Definitions\Logger">
+      <UniqueIdentifier>{6d443ee9-2901-4fb7-a3de-a10e30fdf365}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AntVariant.h">

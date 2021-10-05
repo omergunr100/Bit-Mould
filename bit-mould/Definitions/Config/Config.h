@@ -1,21 +1,31 @@
 #pragma once
-#include<string>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <map>
 
-namespace Config {
-	struct General {
-		static const std::string configPath;
-		static const std::FILE* config;
-		static const std::string logPath;
-		static const std::FILE* log;
+struct Config {
 
-		void Parse();
+	static std::map<std::string, std::string> config;
+
+	Config() = delete;
+	Config(const Config& other) = delete;
+	~Config() = delete;
+
+	static int Parse();
+
+	static struct General {
+		static const char* configPath;
+		static std::ofstream log;
+		static const char* imageFolder;
 
 		General() = delete;
 		General(const General& other) = delete;
 		~General() = delete;
 	};
-
-	struct AntWeights{
+	
+	static struct AntWeights{
 		// Base stats increases tied to strongDirection
 		static const float spreadBias;
 		static const float aggressivenessBias;
@@ -29,22 +39,18 @@ namespace Config {
 		static const float spreadDecOnSuccess;
 		static const float spreadIncOnFail;
 
-		void Parse();
-
 		AntWeights() = delete;
 		AntWeights(const AntWeights& other) = delete;
 		~AntWeights() = delete;
 	};
 	
-	struct GameParameters {
+	static struct GameParameters {
 		static const int width;
 		static const int height;
 		static const int players;
 		static const int turns;
 		static const int scaleWidth;
 		static const int scaleHeight;
-
-		void Parse();
 
 		GameParameters() = delete;
 		GameParameters(const GameParameters& other) = delete;
