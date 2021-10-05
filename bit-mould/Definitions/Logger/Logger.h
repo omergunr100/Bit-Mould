@@ -9,6 +9,8 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <direct.h>
+#include <thread>
 #include "../Config/Config.h"
 
 
@@ -26,6 +28,7 @@ private:
 	static void Log(PRIORITY pr, const char* info);
 
 public:
+	static void Log_(PRIORITY pr, const char* info);
 	static std::string GetPriority(PRIORITY pr);
 	static void EndLog();
 	static int InitLogger(const char* filePath);

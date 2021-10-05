@@ -2,6 +2,14 @@ General configuration:
 LOG_PATH: Log path=C:/Projects/C++/bit-mould/Logs/
 IMAGE_PATH: Image folder path=C:/Projects/C++/bit-mould/Images/
 
+Board config:
+BOARD_WIDTH: Board width in pixels to be used for simulation (Integer)=480
+BOARD_HEIGHT: Board height in pixels to be used for simulation (Integer)=360
+BOARD_PLAYERS: Number of initial players to be simulated (Integer)=100
+BOARD_TURNS: Number of turns to be played (Integer, zero/negative values for 'until full' + value)=0
+BOARD_SCALE_WIDTH: Output image width will scale the image accordingly=1440
+BOARD_SCALE_HEIGHT: Output image height will scale the image accordingly=1080
+
 Ant Weights:
 Base stats tied to strong direction:
 SD_SPREAD: Spread bias for strong direction (Float between 0 and 1)=0.0

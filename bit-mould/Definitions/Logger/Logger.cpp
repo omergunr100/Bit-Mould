@@ -7,7 +7,12 @@ std::string Logger::GetPriority(PRIORITY pr) {
 	return priority.at(pr);
 }
 
-void Logger::Log(PRIORITY pr, const char* info) {
+void Logger::Log(PRIORITY pr, const char * info)
+{
+	std::thread(Log_, pr, info);
+}
+
+void Logger::Log_(PRIORITY pr, const char* info) {
 	std::time_t now = time(0);
 	tm* localTime = localtime(&now);
 	char buffer[32];
@@ -28,6 +33,7 @@ int Logger::InitLogger(const char * filePath)
 	std::stringstream fullPath;
 	strftime(buffer, sizeof buffer, "[%d-%m-%Y %H-%M-%S] Log", localTime);
 	fullPath << filePath << buffer << ".log";
+	_mkdir(filePath);
 	m_log.open(fullPath.str().c_str());
 	if (m_log.good()) {
 		std::stringstream message;

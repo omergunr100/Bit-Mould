@@ -29,4 +29,20 @@ int Config::Parse()
 	}
 	return 0;
 }
+std::string Config::GetAsString(const char * id)
+{
+	return config.at(id);
+}
+int Config::GetAsInteger(const char * id)
+{
+	return std::stoi(config.at(id));
+}
+float Config::GetAsFloat(const char * id)
+{
+	return std::stof(config.at(id));
+}
+bool Config::GetAsBool(const char * id)
+{
+	return config.at(id) == "true";
+}
 int temp = Config::Parse();

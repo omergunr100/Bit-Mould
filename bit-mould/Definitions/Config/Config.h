@@ -15,6 +15,11 @@ struct Config {
 	~Config() = delete;
 
 	static int Parse();
+
+	static std::string GetAsString(const char* id);
+	static int GetAsInteger(const char* id);
+	static float GetAsFloat(const char* id);
+	static bool GetAsBool(const char* id);
 	/*
 	struct General {
 		static const char* configPath;

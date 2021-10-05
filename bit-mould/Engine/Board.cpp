@@ -158,12 +158,12 @@ void Board::PlayTurn()
 			if (m_gameBoard[y][x].GetId() < 0)
 				continue;
 			//cout << "Playing: [" << x << ", " << y << "]" << endl;
-			vector<AntVariant> results = m_gameBoard[y][x].PlayTurn(GetImmediateNeighbors(x,y,changes));
+			vector<AntVariant*> results = m_gameBoard[y][x].PlayTurn(GetImmediateNeighbors(x,y,changes));
 			int counter = 0;
 			for (int dy = -1; dy < 2; dy++) {
 				for (int dx = -1; dx < 2; dx++) {
-					if (results[counter].GetId() >= 0) {
-						changes[y + dy][x + dx] = results[counter];
+					if (results[counter]->GetId() >= 0) {
+						changes[y + dy][x + dx] = *results[counter];
 					}
 					counter++;
 				}

@@ -1,19 +1,17 @@
 #include "AntVariant.h"
-#include <iostream>
-
-using namespace std;
 
 // Config
 // Base stats increases tied to strongDirection
-const float Weights::spreadBias = 0.15f;
-const float Weights::aggressivenessBias = 0.15f;
-const float Weights::strengthBias = 0.15f;
+const float Weights::spreadBias = Config::GetAsFloat("SD_SPREAD");
+const float Weights::aggressivenessBias = Config::GetAsFloat("SD_AGGRESSIVENESS");
+const float Weights::strengthBias = Config::GetAsFloat("SD_STRENGTH");
+
 // Colors
-const bool Weights::mix = true; // Whether to mix the colors of nearby cells each turn
-const int Weights::ownWeightMult = 3; // Weight multiplier of the cell's own color in the mixing
+const bool Weights::mix = Config::GetAsBool("COLORS_MIX"); // Whether to mix the colors of nearby cells each turn
+const int Weights::ownWeightMult = Config::GetAsInteger("COLORS_SELF_WEIGHT"); // Weight multiplier of the cell's own color in the mixing
 // Stat decrease/increase based on actions
-const float Weights::spreadDecOnSuccess = 0.1f;
-const float Weights::spreadIncOnFail = 0.05f;
+const float Weights::spreadDecOnSuccess = Config::GetAsFloat("STAT_SPREAD_DEC");
+const float Weights::spreadIncOnFail = Config::GetAsFloat("STAT_SPREAD_INC");
 //End of config
 
 
@@ -55,6 +53,60 @@ AntVariant::AntVariant(const AntVariant & other)
 	CreatedInstances++;
 	if (m_id == SpecialId::Empty)
 		EmptyCells++;
+}
+
+void AntVariant::microTurn(AntVariant* AntPointer, int* counter, const int& direction)
+{
+	if (AntPointer->m_id == SpecialId::PlaceHolder) {
+		return;
+	}
+	else if (AntPointer->m_id == SpecialId::Empty) {
+		if (Spread(direction)) {
+			m_spreadChance -= Weights::spreadDecOnSuccess;
+			*AntPointer = AntVariant(*this);
+			// For color logic
+			(*counter)++;
+			r += m_color.r;
+			g += m_color.g;
+			b += m_color.b;
+		}
+		else {
+			m_spreadChance += Weights::spreadIncOnFail;
+			// Not considering empty cell for color
+		}
+	}
+	else if (this->m_id == AntPointer->m_id) {
+		*AntPointer = AntVariant(*this);
+		// For color logic
+		(*counter)++;
+		r += AntPointer->m_color.r;
+		g += AntPointer->m_color.g;
+		b += AntPointer->m_color.b;
+	}
+	else if (this->RollAggression(direction)) {
+		if (this->Attack(*AntPointer, direction)) {
+			*AntPointer = AntVariant(*this);
+			// For color logic
+			(*counter)++;
+			r += m_color.r;
+			g += m_color.g;
+			b += m_color.b;
+		}
+		else {
+			// For color logic
+			counter++;
+			r += AntPointer->m_color.r;
+			g += AntPointer->m_color.g;
+			b += AntPointer->m_color.b;
+		}
+	}
+	else {
+		// For color logic
+		(*counter)++;
+		r += neighbors[i].m_color.r;
+		g += neighbors[i].m_color.g;
+		b += neighbors[i].m_color.b;
+	}
 }
 
 AntVariant::AntVariant(const int & id, const Color & color, const float & spreadChance, const float & aggressiveness, const float & strength, const int & strongDirection)
@@ -131,72 +183,72 @@ bool AntVariant::Attack(const AntVariant & neighbor, const int & direction)
 	return false;
 }
 
-vector<AntVariant> AntVariant::PlayTurn(const std::vector<AntVariant>& neighbors)
+std::vector<AntVariant*> AntVariant::PlayTurn(const std::vector<AntVariant>& neighbors)
 {
-	vector<AntVariant> ResultVect;
+	std::vector<AntVariant*> ResultVect;
 	ResultVect.resize(9);
-	float r = 0, g = 0, b = 0;
-	int counter = 0;
+	float *r = new float(0), *g = new float(0), *b = new float(0);
+	int* counter = new int(0);
 	for (int i = 0; i < neighbors.size(); i++) {
-		//cout << "Neighbor " << i << endl;
 		if (neighbors[i].m_id == SpecialId::PlaceHolder) {
-			ResultVect[i] = neighbors[i];
+			*ResultVect[i] = neighbors[i];
 		}
 		else if (neighbors[i].m_id == SpecialId::Empty) {
 			if (Spread(i)) {
 				m_spreadChance -= Weights::spreadDecOnSuccess;
-				ResultVect[i] = AntVariant(*this);
+				*ResultVect[i] = AntVariant(*this);
 				// For color logic
-				counter++;
-				r += m_color.r;
-				g += m_color.g;
-				b += m_color.b;
+				*counter++;
+				*r += m_color.r;
+				*g += m_color.g;
+				*b += m_color.b;
 			}
 			else {
 				m_spreadChance += Weights::spreadIncOnFail;
-				ResultVect[i] = neighbors[i];
+				*ResultVect[i] = neighbors[i];
 				// Not considering empty cell for color
 			}
 		}
 		else if (this->m_id == neighbors[i].m_id) {
-			ResultVect[i] = AntVariant(*this);
+			*ResultVect[i] = AntVariant(*this);
 			// For color logic
-			counter++;
-			r += neighbors[i].m_color.r;
-			g += neighbors[i].m_color.g;
-			b += neighbors[i].m_color.b;
+			*counter++;
+			*r += neighbors[i].m_color.r;
+			*g += neighbors[i].m_color.g;
+			*b += neighbors[i].m_color.b;
 		}
 		else if (this->RollAggression(i)) {
 			if (this->Attack(neighbors[i], i)) {
-				ResultVect[i] = AntVariant(*this);
+				*ResultVect[i] = AntVariant(*this);
 				// For color logic
-				counter++;
-				r += m_color.r;
-				g += m_color.g;
-				b += m_color.b;
+				*counter++;
+				*r += m_color.r;
+				*g += m_color.g;
+				*b += m_color.b;
 			}
 			else {
-				ResultVect[i] = neighbors[i];
+				*ResultVect[i] = neighbors[i];
 				// For color logic
-				counter++;
-				r += neighbors[i].m_color.r;
-				g += neighbors[i].m_color.g;
-				b += neighbors[i].m_color.b;
+				*counter++;
+				*r += neighbors[i].m_color.r;
+				*g += neighbors[i].m_color.g;
+				*b += neighbors[i].m_color.b;
 			}
 		}
 		else {
-			ResultVect[i] = neighbors[i];
+			*ResultVect[i] = neighbors[i];
 			// For color logic
-			counter++;
-			r += neighbors[i].m_color.r;
-			g += neighbors[i].m_color.g;
-			b += neighbors[i].m_color.b;
+			*counter++;
+			*r += neighbors[i].m_color.r;
+			*g += neighbors[i].m_color.g;
+			*b += neighbors[i].m_color.b;
 		}
 	}
 	if (Weights::mix) {
-		m_color.r = (r + m_color.r*(Weights::ownWeightMult - 1)) / (counter + Weights::ownWeightMult - 1);
-		m_color.g = (g + m_color.g*(Weights::ownWeightMult - 1)) / (counter + Weights::ownWeightMult - 1);
-		m_color.b = (b + m_color.b*(Weights::ownWeightMult - 1)) / (counter + Weights::ownWeightMult - 1);
+		m_color.r = (*r + m_color.r*(Weights::ownWeightMult - 1)) / (*counter + Weights::ownWeightMult - 1);
+		m_color.g = (*g + m_color.g*(Weights::ownWeightMult - 1)) / (*counter + Weights::ownWeightMult - 1);
+		m_color.b = (*b + m_color.b*(Weights::ownWeightMult - 1)) / (*counter + Weights::ownWeightMult - 1);
 	}
+	delete r, g, b, counter;
 	return ResultVect;
 }

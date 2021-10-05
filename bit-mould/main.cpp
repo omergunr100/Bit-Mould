@@ -9,17 +9,9 @@ using namespace std;
 int main(int /*argc*/, char **argv)
 {
 	Logger::InitLogger(Config::config["LOG_PATH"].c_str());
-	/*
-	int width = 480;
-	int height = 360;
-	int players = 100;
-	int turns = 0;
-	int scale_x = 1920;
-	int scale_y = 1080;
-
-	Board game = Board(width, height, players, turns,scale_x, scale_y);
+	
+	Board game = Board(Config::GetAsInteger("BOARD_WIDTH"), Config::GetAsInteger("BOARD_HEIGHT"), Config::GetAsInteger("BOARD_PLAYERS"), Config::GetAsInteger("BOARD_TURNS"), Config::GetAsInteger("BOARD_SCALE_WIDTH"), Config::GetAsInteger("BOARD_SCALE_HEIGHT"));
 	game.GameLoop();
-	*/
 
 	Logger::EndLog();
     cout << "End of Code!\n";

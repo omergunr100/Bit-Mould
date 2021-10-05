@@ -1,6 +1,8 @@
 #pragma once
+#include "../Definitions/Config/Config.h"
 #include "../Definitions/Image/Color.h"
 #include "../Definitions/Random/Randomness.h"
+#include <iostream>
 #include <vector>
 
 struct Weights {
@@ -46,9 +48,10 @@ public:
 	int GetId();
 	Color GetColor();
 	static AntVariant GetRandom();	
-	std::vector<AntVariant> PlayTurn(const std::vector<AntVariant>& neighbors);
+	std::vector<AntVariant*> PlayTurn(const std::vector<AntVariant>& neighbors);
 
 private:
+	void microTurn(AntVariant* AntPointer, int* counter, const int& direction);
 	AntVariant(const int& id, const Color& color, const float& spreadChance, const float& aggressiveness, const float& strength, const int& strongDirection);
 	bool Spread(const int& direction);
 	bool RollAggression(const int& direction);
