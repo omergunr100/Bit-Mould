@@ -4,9 +4,9 @@
 
 class Randomness {
 private:
-	Randomness();
-	Randomness(const Randomness& other);
-	~Randomness();
+	Randomness() = delete;
+	Randomness(const Randomness& other) = delete;
+	~Randomness() = delete;
 public:
 	static float dist_1_0();
 	static int dist_8_0();
