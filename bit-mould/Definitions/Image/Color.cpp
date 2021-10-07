@@ -20,3 +20,17 @@ Color::Color(float r, float g, float b)
 Color::~Color()
 {
 }
+
+void Color::operator+=(const Color & other)
+{
+	r += other.r;
+	g += other.g;
+	b += other.b;
+}
+
+void Color::operator-=(const Color & other)
+{
+	r -= other.r;
+	g -= other.g;
+	b -= other.b;
+}

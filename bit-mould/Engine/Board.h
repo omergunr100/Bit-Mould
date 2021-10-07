@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <direct.h>
+#include "../Definitions/Config/Config.h"
 #include "AntVariant.h"
 #include "../Definitions/Image/BMP.h"
 

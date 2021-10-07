@@ -51,7 +51,7 @@ public:
 	std::vector<AntVariant*> PlayTurn(const std::vector<AntVariant>& neighbors);
 
 private:
-	void microTurn(AntVariant* AntPointer, int* counter, const int& direction);
+	void microTurn(AntVariant* AntPointer, Color* sumAll, int* counter, const int& direction);
 	AntVariant(const int& id, const Color& color, const float& spreadChance, const float& aggressiveness, const float& strength, const int& strongDirection);
 	bool Spread(const int& direction);
 	bool RollAggression(const int& direction);

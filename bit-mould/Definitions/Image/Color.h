@@ -7,4 +7,7 @@ struct Color {
 	Color(const Color& other);
 	Color(float r, float g, float b);
 	~Color();
+
+	void operator+=(const Color& other);
+	void operator-=(const Color& other);
 };

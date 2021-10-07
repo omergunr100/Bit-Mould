@@ -28,6 +28,7 @@ Board::Board(int cols, int rows, int numPlayers, int endTurn, int scaleX, int sc
 		AntVariant::EmptyCells--;
 	}
 	cout << "Populated the board with " << m_numPlayers << " players" << endl;
+	_mkdir(Config::GetAsChar("IMAGE_PATH"));
 	TakeImage();
 }
 
@@ -55,6 +56,7 @@ Board::Board(int cols, int rows, int numPlayers, int endTurn)
 		AntVariant::EmptyCells--;
 	}
 	cout << "Populated the board with " << m_numPlayers << " players" << endl;
+	_mkdir(Config::GetAsChar("IMAGE_PATH"));
 	TakeImage();
 }
 
@@ -164,6 +166,7 @@ void Board::PlayTurn()
 				for (int dx = -1; dx < 2; dx++) {
 					if (results[counter]->GetId() >= 0) {
 						changes[y + dy][x + dx] = *results[counter];
+						delete results[counter];
 					}
 					counter++;
 				}
@@ -187,7 +190,7 @@ BMP Board::TakeImage()
 	}
 	stringstream ss;
 	ss.str(string());
-	ss << "images/out_" << m_turnNumber << ".bmp";
+	ss << Config::GetAsChar("IMAGE_PATH") << "Image_" << m_turnNumber << ".bmp";
 	if (m_cols == m_scaleX && m_rows == m_scaleY)
 		image.Export(ss.str().c_str());
 	else

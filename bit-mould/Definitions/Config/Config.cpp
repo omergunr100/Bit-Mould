@@ -29,6 +29,10 @@ int Config::Parse()
 	}
 	return 0;
 }
+const char * Config::GetAsChar(const char * id)
+{
+	return config.at(id).c_str();
+}
 std::string Config::GetAsString(const char * id)
 {
 	return config.at(id);

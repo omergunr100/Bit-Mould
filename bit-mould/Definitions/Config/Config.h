@@ -7,15 +7,16 @@
 #include "../Logger/Logger.h"
 
 struct Config {
-
+private:
 	static std::map<std::string, std::string> config;
-
+public:
 	Config() = delete;
 	Config(const Config& other) = delete;
 	~Config() = delete;
 
 	static int Parse();
 
+	static const char* GetAsChar(const char* id);
 	static std::string GetAsString(const char* id);
 	static int GetAsInteger(const char* id);
 	static float GetAsFloat(const char* id);
