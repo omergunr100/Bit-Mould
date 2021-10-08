@@ -36,8 +36,9 @@ void Logger::InitLogger(const char * filePath)
 	m_log.open(fullPath.str().c_str(), std::ios::out | std::ios::app);
 	if (m_log.good()) {
 		std::stringstream message;
-		message << "Logger initialized at: " << fullPath.str().c_str();
-		Log(message.str().c_str());
+		message << "Logger initialized at: " << fullPath.str() << std::endl;
+		std::string temp = message.str();
+		Log(temp.c_str());
 	}
 	else {
 		std::cerr << "Logger couldn't be initialized" << std::endl;

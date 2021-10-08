@@ -7,23 +7,40 @@ BMP::BMP(int width, int height)
 {
 }
 
+BMP::BMP(const BMP & other)
+{
+	m_width = other.m_width;
+	m_height = other.m_height;
+	m_colors = other.m_colors;
+}
+
 BMP::~BMP()
 {
 }
 
-Color BMP::GetColor(int x, int y)
+const Color& BMP::GetColor(BMP& image, int x, int y)
 {
-	return m_colors[y*m_width+x];
+	return image.m_colors[y*image.m_width+x];
 }
 
-void BMP::SetColor(const Color & color, int x, int y)
+void BMP::SetColor(BMP& image, const Color & color, int x, int y)
 {
-	m_colors[y*m_width + x].r = color.r;
-	m_colors[y*m_width + x].g = color.g;
-	m_colors[y*m_width + x].b = color.b;
+	image.m_colors[y*image.m_width + x].r = color.r;
+	image.m_colors[y*image.m_width + x].g = color.g;
+	image.m_colors[y*image.m_width + x].b = color.b;
 }
 
-void BMP::Export(const char * path)
+void BMP::ThreadedExport(BMP image, std::string path, const int& scale_x, const int& scale_y)
+{
+	if (image.m_height == scale_y && image.m_height == scale_x) {
+		Export(image, path.c_str());
+	}
+	else {
+		Export(image, path.c_str(), scale_x, scale_y);
+	}
+}
+
+void BMP::Export(BMP& image, const char * path)
 {
 	std::ofstream f;
 	f.open(path,std::ios::out | std::ios::binary); // write binary
@@ -35,11 +52,11 @@ void BMP::Export(const char * path)
 
 
 	unsigned char bmpPad[3] = { 0,0,0 };
-	const int paddingAmount = ((4 - (m_width * 3) % 4) % 4);
+	const int paddingAmount = ((4 - (image.m_width * 3) % 4) % 4);
 
 	const int fileHeaderSize = 14;
 	const int informationHeaderSize = 40;
-	const int fileSize = fileHeaderSize + informationHeaderSize + m_width * m_height * 3 + paddingAmount * m_height;
+	const int fileSize = fileHeaderSize + informationHeaderSize + image.m_width * image.m_height * 3 + paddingAmount * image.m_height;
 
 	unsigned char fileHeader[fileHeaderSize];
 
@@ -70,15 +87,15 @@ void BMP::Export(const char * path)
 	informationHeader[2] = 0;
 	informationHeader[3] = 0;
 	// Image width
-	informationHeader[4] = m_width;
-	informationHeader[5] = m_width >> 8;
-	informationHeader[6] = m_width >> 16;
-	informationHeader[7] = m_width >> 24;
+	informationHeader[4] = image.m_width;
+	informationHeader[5] = image.m_width >> 8;
+	informationHeader[6] = image.m_width >> 16;
+	informationHeader[7] = image.m_width >> 24;
 	// Image height
-	informationHeader[8] = m_height;
-	informationHeader[9] = m_height >> 8;
-	informationHeader[10] = m_height >> 16;
-	informationHeader[11] = m_height >> 24;
+	informationHeader[8] = image.m_height;
+	informationHeader[9] = image.m_height >> 8;
+	informationHeader[10] = image.m_height >> 16;
+	informationHeader[11] = image.m_height >> 24;
 	// Planes
 	informationHeader[12] = 1;
 	informationHeader[13] = 0;
@@ -119,11 +136,11 @@ void BMP::Export(const char * path)
 	f.write(reinterpret_cast<char*>(fileHeader), fileHeaderSize);
 	f.write(reinterpret_cast<char*>(informationHeader), informationHeaderSize);
 
-	for (int y = 0; y < m_height; y++) {
-		for (int x = 0; x < m_width; x++) {
-			unsigned char r = static_cast<unsigned char>(GetColor(x, y).r * 255.0f);
-			unsigned char g = static_cast<unsigned char>(GetColor(x, y).g * 255.0f);
-			unsigned char b = static_cast<unsigned char>(GetColor(x, y).b * 255.0f);
+	for (int y = 0; y < image.m_height; y++) {
+		for (int x = 0; x < image.m_width; x++) {
+			unsigned char r = static_cast<unsigned char>(GetColor(image, x, y).r * 255.0f);
+			unsigned char g = static_cast<unsigned char>(GetColor(image, x, y).g * 255.0f);
+			unsigned char b = static_cast<unsigned char>(GetColor(image, x, y).b * 255.0f);
 
 			unsigned char color[] = { b, g, r };
 			f.write(reinterpret_cast<char*>(color), 3);
@@ -135,7 +152,7 @@ void BMP::Export(const char * path)
 	std::cout << "File created\n";
 }
 
-void BMP::Export(const char * path, int scale_x, int scale_y)
+void BMP::Export(BMP& image, const char * path, int scale_x, int scale_y)
 {
 	std::ofstream f;
 	f.open(path, std::ios::out | std::ios::binary); // write binary
@@ -231,16 +248,16 @@ void BMP::Export(const char * path, int scale_x, int scale_y)
 	f.write(reinterpret_cast<char*>(fileHeader), fileHeaderSize);
 	f.write(reinterpret_cast<char*>(informationHeader), informationHeaderSize);
 	int h_count = 0, w_count = 0;
-	int y_ratio = (int)floor((float)scale_y / (float)m_height), x_ratio = (int)floor((float)scale_x / (float)m_width);
-	std::cout << "The x_scale ratio is: " << (int)floor((float)scale_x / (float)m_width) << ", The y_scale ratio is: " << (int)floor((float)scale_y / (float)m_height) << "\n";
+	int y_ratio = (int)floor((float)scale_y / (float)image.m_height), x_ratio = (int)floor((float)scale_x / (float)image.m_width);
+	std::cout << "The x_scale ratio is: " << (int)floor((float)scale_x / (float)image.m_width) << ", The y_scale ratio is: " << (int)floor((float)scale_y / (float)image.m_height) << "\n";
 	for (int y = 0; y < scale_y; y++) {
 		w_count = 0;
 		for (int x = 0; x < scale_x; x++) {
 			//std::cout << "Row: " << y << ", Col: " << x << "\n";
 			//std::cout << "h_count: " << h_count << ", w_count: " << w_count << "\n";
-			unsigned char r = static_cast<unsigned char>(GetColor((int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).r * 255.0f);
-			unsigned char g = static_cast<unsigned char>(GetColor((int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).g * 255.0f);
-			unsigned char b = static_cast<unsigned char>(GetColor((int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).b * 255.0f);
+			unsigned char r = static_cast<unsigned char>(GetColor(image, (int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).r * 255.0f);
+			unsigned char g = static_cast<unsigned char>(GetColor(image, (int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).g * 255.0f);
+			unsigned char b = static_cast<unsigned char>(GetColor(image, (int)floor((float)w_count / x_ratio), (int)floor((float)h_count / y_ratio)).b * 255.0f);
 			unsigned char color[] = { b, g, r };
 			f.write(reinterpret_cast<char*>(color), 3);
 			w_count++;

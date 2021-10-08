@@ -185,16 +185,20 @@ BMP Board::TakeImage()
 	
 	for (int y = 0; y < m_rows; y++) {
 		for (int x = 0; x < m_cols; x++) {
-			image.SetColor(m_gameBoard[y][x].GetColor(), x, y);
+			BMP::SetColor(image, m_gameBoard[y][x].GetColor(), x, y);
 		}
 	}
 	stringstream ss;
 	ss.str(string());
 	ss << Config::GetAsChar("IMAGE_PATH") << "Image_" << m_turnNumber << ".bmp";
+	std::string temp = ss.str();
+	std::thread{ &BMP::ThreadedExport, image, temp, m_scaleX, m_scaleY }.detach();
+	/*
 	if (m_cols == m_scaleX && m_rows == m_scaleY)
-		image.Export(ss.str().c_str());
+		BMP::Export(image, ss.str().c_str());
 	else
-		image.Export(ss.str().c_str(), m_scaleX, m_scaleY);
+		BMP::Export(image, ss.str().c_str(), m_scaleX, m_scaleY);
+	*/
 	//m_images.push_back(image);
 	cout << "Finished exporting image, resolution: " << image.GetWidth() << ", " << image.GetHeight() << endl;
 	return image;

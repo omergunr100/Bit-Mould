@@ -150,9 +150,9 @@ AntVariant AntVariant::GetRandom()
 	color.r = Randomness::dist_1_0();
 	color.g = Randomness::dist_1_0();
 	color.b = Randomness::dist_1_0();
-	float spreadChance = Randomness::dist_1_0();
-	float aggressiveness = Randomness::dist_1_0();
-	float strength = Randomness::dist_1_0();
+	float spreadChance = Randomness::dist_1_0()/1.5f;
+	float aggressiveness = Randomness::dist_1_0()/1.5f;
+	float strength = Randomness::dist_1_0()/2.0f;
 	int strongDirection = Randomness::dist_8_0();
 	return AntVariant(color, spreadChance, aggressiveness, strength, strongDirection);
 }

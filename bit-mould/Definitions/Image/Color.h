@@ -1,6 +1,7 @@
 #pragma once
+
 struct Color {
-	float r, g, b;
+	long double r, g, b;
 	static const int size = 3;
 
 	Color();
